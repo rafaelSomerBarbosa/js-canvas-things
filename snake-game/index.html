@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Snake</title>
+</head>
+<body>
+    <canvas id="canvas" style="border: 1px solid #000;"></canvas>
+    FPS <span id="score">0</span>
+    <button onclick="return intervalID = setInterval(AI, 1000/vel)">Start AI</button>
+    <button onclick="return clearInterval(intervalID)">End AI</button>
+
+    <script src="./script.js"></script>
+
+    <script>
+        // const canvas = document.getElementById('canvas')
+        // const ctx = canvas.getContext('2d')
+        // const score = document.querySelector('#score');
+
+        // let vel = 6;
+        // let vx = vy = 0;
+        // let px = py = 10;
+        // const sizeBox = 50;
+        // const qtBox = 20;
+        // let ax = Math.floor(Math.random() * (canvas.clientWidth/sizeBox));
+        // let ay = Math.floor(Math.random() * (canvas.clientHeight/sizeBox));
+        // let trail = [[px, py+1], [px, py+2]]
+        // let tail = 2
+        // let lastKeyboardEvent = 'ArrowUp';
+        // let intervalID;
+        // let intervalKeyboardID;
+        // let renew = true
+
+        // function AI() {
+        //     const matrix = [px-ax, py-ay]
+
+        //     if(matrix[0] > 0) {
+        //         document.dispatchEvent(new KeyboardEvent('keyup', {'key': 'ArrowLeft'}))
+        //     }
+        //     if(matrix[1] > 0) {
+        //         document.dispatchEvent(new KeyboardEvent('keyup', {'key': 'ArrowUp'}))
+        //     }
+
+        //     if(matrix[0] < 0) {
+        //         document.dispatchEvent(new KeyboardEvent('keyup', {'key': 'ArrowRight'}))
+        //     }
+        //     if(matrix[1] < 0) {
+        //         document.dispatchEvent(new KeyboardEvent('keyup', {'key': 'ArrowDown'}))
+        //     }
+        // }
+
+        // function eventKeyboard() {
+        //     document.dispatchEvent(new KeyboardEvent('keyup', {'key': lastKeyboardEvent}))
+
+        //     if(vel > 6 && renew) {
+        //         renew = false
+        //         clearInterval(intervalKeyboardID)
+        //         intervalKeyboardID = setInterval(eventKeyboard, 1000/vel)
+        //     }
+        // }
+
+        // const refreshTail = (orientation, pos) => {
+        //     try {
+        //         const newTrail = []
+        //         for(let a=0;a<tail;a++) {
+        //             if(a == 0 ) {
+        //                 newTrail.push([px,py])
+        //             } else {
+        //                 if(trail[a-1]) {
+        //                     newTrail.push([trail[a-1][0], trail[a-1][1]])
+        //                 }
+        //             }
+        //         }
+
+        //         trail = newTrail
+        //     } catch(err) {
+        //         console.log(trail)
+        //         console.log(err)
+        //         clearInterval(intervalID)
+        //     }
+        // }
+
+        // const refreshApple = (canvasSize) => {
+        //     try {
+        //         if(!canvasSize) return
+
+        //         const newLocation = Math.floor(Math.random() * (canvasSize/sizeBox))
+
+        //         for(let a=0;a<trail.length;a++) {
+        //             if(trail[a] && trail[a][0] && trail[a][1]) {
+        //                 const tailX = trail[a][0]*sizeBox
+        //                 const tailY = trail[a][1]*sizeBox
+    
+        //                 if(tailX == newLocation*sizeBox || tailY == newLocation*sizeBox) {
+        //                     return refreshApple(canvasSize)
+        //                 }
+        //             } else {
+        //                 return refreshApple(canvasSize)
+        //             }
+        //         }
+
+        //         return newLocation;
+        //     } catch(err) {
+        //         console.log(err)
+        //         trail = [[px, py+1], [px, py+2]]
+        //         tail = 2
+        //         score.innerHTML = 0
+        //         return Math.floor(Math.random() * (canvasSize/sizeBox))
+        //     }
+        // }
+
+        // function rotateAndPaintImage ( context, image, angleInRad , positionX, positionY, axisX, axisY ) {
+        //     context.translate( positionX, positionY );
+        //     context.rotate( angleInRad );
+        //     context.drawImage( image, 0, 0, 43, 40, 0, 0, -axisX, -axisY );
+        //     context.rotate( -angleInRad );
+        //     context.translate( -positionX, -positionY );
+        // }
+
+        // document.addEventListener('keyup', (evt) => {
+        //     if(evt.key == 'ArrowUp') {
+        //         refreshTail()
+        //         if(py*sizeBox == 0) {
+        //             py = canvas.clientHeight/sizeBox-1
+        //         } else {
+        //             py -=1
+        //         }
+        //         lastKeyboardEvent = evt.key;
+        //     }
+        //     if(evt.key == 'ArrowDown') {
+        //         refreshTail()
+        //         if(py*sizeBox == canvas.clientHeight-sizeBox) {
+        //             py = 0
+        //         } else {
+        //             py +=1
+        //         }
+        //         lastKeyboardEvent = evt.key;
+        //     }
+        //     if(evt.key == 'ArrowLeft') {
+        //         refreshTail()
+        //         if(px*sizeBox == 0) {
+        //             px = canvas.clientWidth/sizeBox-1
+        //         } else {
+        //             px -=1
+        //         }
+        //         lastKeyboardEvent = evt.key;
+        //     }
+        //     if(evt.key == 'ArrowRight') {
+        //         refreshTail()                
+        //         if(px*sizeBox == canvas.clientWidth-sizeBox) {
+        //             px = 0
+        //         } else {
+        //             px +=1
+        //         }
+        //         lastKeyboardEvent = evt.key;
+        //     }
+        // })
+
+        // let enemy = [[canvas.clientWidth/sizeBox-1, 5], [canvas.clientWidth/sizeBox-2, 5], [canvas.clientWidth/sizeBox-3, 5], [canvas.clientWidth/sizeBox-4, 5]]
+
+        // setInterval(() => {
+        //     for(let a=0; a<canvas.clientWidth/sizeBox;a++){
+        //         for(let h=0; h<canvas.clientWidth/sizeBox;h++){
+        //             ctx.fillStyle = '#000';
+        //             ctx.fillRect(h*sizeBox - (1), a*sizeBox - (1), sizeBox + (1*2), sizeBox + (1*2))
+
+        //             ctx.fillStyle = '#FFF';
+        //             ctx.fillRect(h*sizeBox, a*sizeBox, sizeBox, sizeBox)
+
+        //         }
+        //     }
+
+        //     for(let a=0;a<enemy.length;a++) {
+        //         ctx.fillStyle = 'black';
+        //         enemy[a][0] = enemy[a][0] == 0 ? canvas.clientWidth/sizeBox-1 : enemy[a][0]-1   
+        //         ctx.fillRect(enemy[a][0]*sizeBox, enemy[a][1]*sizeBox, sizeBox, sizeBox)
+
+        //         if(enemy[a][0] == px && enemy[a][1] == py) {
+        //             console.log('crash')
+        //         }
+        //     }
+
+        //     ctx.fillStyle = 'red';
+        //     ctx.fillRect(ax*sizeBox, ay*sizeBox, sizeBox, sizeBox)
+
+        //     for(let a=0;a<trail.length;a++) {
+        //         ctx.fillStyle = 'gray';
+        //         ctx.fillRect(trail[a][0]*sizeBox, trail[a][1]*sizeBox, sizeBox, sizeBox)
+        //     }
+
+        //     const backgroundImage = new Image()
+        //     backgroundImage.src = './snake-sprite.png'
+            
+        //     if(lastKeyboardEvent == 'ArrowUp') {
+        //         rotateAndPaintImage(ctx, backgroundImage, 180 * Math.PI / 180, px*sizeBox, py*sizeBox, sizeBox, sizeBox)                
+        //     }
+        //     if(lastKeyboardEvent == 'ArrowDown') {
+        //         rotateAndPaintImage(ctx, backgroundImage, 0, px*sizeBox, py*sizeBox, -sizeBox, -sizeBox)
+        //     }
+        //     if(lastKeyboardEvent == 'ArrowLeft') {
+        //         rotateAndPaintImage(ctx, backgroundImage, 90 * Math.PI / 180, px*sizeBox, py*sizeBox, -sizeBox, sizeBox)
+        //     }
+        //     if(lastKeyboardEvent == 'ArrowRight') {
+        //         rotateAndPaintImage(ctx, backgroundImage, 270 * Math.PI / 180, px*sizeBox, py*sizeBox, sizeBox, -sizeBox)
+        //     }            
+
+        //     if(px*sizeBox == ax*sizeBox && ay*sizeBox == py*sizeBox) {
+        //         console.log('werqwre')
+        //         const newLocationX = refreshApple(canvas.clientWidth)
+        //         const newLocationY = refreshApple(canvas.clientHeight)
+        //         ax = newLocationX
+        //         ay = newLocationY
+        //         tail +=1
+        //         vel +=1
+        //         score.innerHTML = parseInt(score.innerHTML)+1
+        //         renew = true
+        //     }
+
+        //     // console.log('apple location', ax, ay)
+        //     // console.log('head location', px, py)
+        //     // console.log('distance location', px-ax, py-ay)
+        // }, 1000/7)
+
+        // intervalID = setInterval(AI, 1000/vel)
+
+        // intervalKeyboardID = setInterval(eventKeyboard, 1000/vel)
+    </script>
+</body>
+</html>

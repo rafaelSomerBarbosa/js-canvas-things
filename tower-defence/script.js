@@ -59,15 +59,6 @@ function resetGame() {
 
     startWave(3)
 }
-
-function rotateAndPaintImage(context, image, angleInRad, positionX, positionY, axisX, axisY, width, height) {
-    context.translate(positionX, positionY);
-    context.rotate(angleInRad * Math.PI / 108);
-    context.drawImage(image, 0, 0, 40, 43, 0, 0, -axisX, -axisY);
-    context.rotate(-angleInRad * Math.PI / 108);
-    context.translate(-positionX, -positionY);
-}
-
 class Tower {
     constructor(x, y) {
         this.x = x
@@ -90,23 +81,11 @@ class Tower {
     draw() {
         ctx.save()
         ctx.beginPath()
-        // ctx.fillStyle = 'rgba(255, 255, 255, 0)'
-        // ctx.fillStyle = 'black'
-        // ctx.fillRect(this.x * this.size - 2, this.y * this.size - 2, this.size, this.size)
-
-        // rotateAndPaintImage(
-        //     ctx, 
-        //     this.towerSprite, 
-        //     0, 
-        //     this.x * this.size + (this.size / 4), 
-        //     this.y * this.size,
-        //     this.towerSprite.naturalWidth / 2.6,
-        //     this.towerSprite.naturalHeight / 2.6
-        // )        
+            
         ctx.translate(this.x * this.size + this.size, this.y * this.size + ((this.size - 5) / 4))
         ctx.rotate(Math.PI / 2)
-        // ctx.drawImage(this.towerSprite, this.x * this.size, this.y * this.size, this.towerSprite.naturalWidth / 2.6, this.towerSprite.naturalHeight / 2.6)
         ctx.drawImage(this.towerSprite, 0, 0, this.towerSprite.naturalWidth / 2.6, this.towerSprite.naturalHeight / 2.6)
+
         ctx.restore()
     }
 
